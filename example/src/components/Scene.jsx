@@ -13,17 +13,20 @@ function Model() {
     mesh.current.rotation.y += delta / 2
   })
   return (
-    <Center ref={mesh}>
-      <mesh
-        geometry={nodes.cube.geometry}
-        material={materials.base}
-        material-color={color}
-        scale={active ? 0.3 : 0.25}
-        onClick={(e) => (e.stopPropagation(), setActive(!active))}
-        onPointerOver={(e) => (e.stopPropagation(), setHover(true))}
-        onPointerOut={(e) => setHover(false)}
-      />
-    </Center>
+    <>
+      <Center ref={mesh}>
+        <mesh
+          geometry={nodes.cube.geometry}
+          material={materials.base}
+          material-color={color}
+          scale={active ? 0.3 : 0.25}
+          onClick={(e) => (e.stopPropagation(), setActive(!active))}
+          onPointerOver={(e) => (e.stopPropagation(), setHover(true))}
+          onPointerOut={(e) => setHover(false)}
+        />
+      </Center>
+      <ContactShadows color={color} position={[0, -1.5, 0]} blur={3} opacity={0.75} />
+    </>
   )
 }
 
@@ -33,7 +36,6 @@ export default function App() {
       <ambientLight />
       <pointLight position={[10, 10, 5]} />
       <Model />
-      <ContactShadows color={color} position={[0, -1.5, 0]} blur={3} opacity={0.75} />
       <Environment preset="city" />
       <CameraControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} />
     </>
