@@ -50,6 +50,8 @@ render(<Scene />)
 
 Your app or scene should be self contained, meaning it shouldn't interact with the DOM. This is because offscreen canvas + webgl is still not supported in Safari. If you must communicate with the DOM, you can use the web broadcast API.
 
+In your worker app you can use most of what is available in the eco system, drei, physics, postpro etc. You can also use assets (gltf, textures, ...). Even controls will work. You will run into problems for everything that requires a DOM to be present (drei/Html/View/...).
+
 ```jsx
 // Scene.js (a self contained webgl app)
 import React, { useRef, useState } from 'react'
