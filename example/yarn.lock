@@ -1617,10 +1617,10 @@
     suspend-react "^0.0.8"
     zustand "^3.7.1"
 
-"@react-three/offscreen@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@react-three/offscreen/-/offscreen-0.0.1.tgz#aaa3e1f83748abfca0b18258ed46c226e498e89d"
-  integrity sha512-9ZQ6iNbTjMj74OygqPJpf6yDLDPuQSjnKoNjKkW8FsDhFXHGow/MdisdR6zHqUCMW8It051bba1KPDF0T2g3WA==
+"@react-three/offscreen@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@react-three/offscreen/-/offscreen-0.0.2.tgz#c86a005ba5b8bfe05272305fc4a25d3c370618e1"
+  integrity sha512-qzOiJUogOKpl26FRtlpxHe4i5z+4wV5yxKKxeATicPKbVUh7FdnNuM33rv0OklOSY/3YMy/u0K9oeehJzhqEnQ==
   dependencies:
     mitt "^3.0.0"
 
