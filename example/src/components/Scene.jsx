@@ -7,6 +7,7 @@ function Model() {
   const { nodes, materials } = useGLTF('/pmndrs.glb')
   const [hovered, setHover] = useState(false)
   const [active, setActive] = useState(false)
+  const color = hovered ? 'hotpink' : 'orange'
   useFrame((state, delta) => {
     mesh.current.rotation.x += delta
     mesh.current.rotation.y += delta
@@ -21,36 +22,10 @@ function Model() {
           onClick={(e) => (e.stopPropagation(), setActive(!active))}
           onPointerOver={(e) => (e.stopPropagation(), setHover(true))}
           onPointerOut={(e) => setHover(false)}
-          material-color={hovered ? 'hotpink' : 'orange'}
+          material-color={color}
         />
       </Center>
-      <ContactShadows color={hovered ? 'hotpink' : 'orange'} position={[0, -1.5, 0]} blur={3} opacity={0.75} />
-    </>
-  )
-}
-
-function Cube(props) {
-  const mesh = useRef()
-  const [hovered, setHover] = useState(false)
-  const [active, setActive] = useState(false)
-  useFrame((state, delta) => {
-    mesh.current.rotation.x += delta
-    mesh.current.rotation.y += delta
-  })
-  return (
-    <>
-      <mesh
-        {...props}
-        ref={mesh}
-        scale={active ? 1.25 : 1}
-        onClick={(e) => (e.stopPropagation(), setActive(!active))}
-        onPointerOver={(e) => (e.stopPropagation(), setHover(true))}
-        onPointerOut={(e) => setHover(false)}
-      >
-        <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
-      </mesh>
-      <ContactShadows color={hovered ? 'hotpink' : 'orange'} position={[0, -1.5, 0]} blur={3} opacity={0.75} />
+      <ContactShadows color={color} position={[0, -1.5, 0]} blur={3} opacity={0.75} />
     </>
   )
 }
