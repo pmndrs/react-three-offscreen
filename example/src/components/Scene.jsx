@@ -9,8 +9,8 @@ function Model() {
   const [active, setActive] = useState(false)
   const color = hovered ? 'hotpink' : 'orange'
   useFrame((state, delta) => {
-    mesh.current.rotation.x += delta
-    mesh.current.rotation.y += delta
+    mesh.current.rotation.x += delta / 2
+    mesh.current.rotation.y += delta / 2
   })
   return (
     <>
@@ -18,11 +18,11 @@ function Model() {
         <mesh
           geometry={nodes.cube.geometry}
           material={materials.base}
+          material-color={color}
           scale={active ? 0.3 : 0.25}
           onClick={(e) => (e.stopPropagation(), setActive(!active))}
           onPointerOver={(e) => (e.stopPropagation(), setHover(true))}
           onPointerOut={(e) => setHover(false)}
-          material-color={color}
         />
       </Center>
       <ContactShadows color={color} position={[0, -1.5, 0]} blur={3} opacity={0.75} />
