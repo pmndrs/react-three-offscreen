@@ -1,7 +1,7 @@
 <h1>react-three-offscreen</h1>
 
 [![Version](https://img.shields.io/npm/v/@react-three/offscreen?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@react-three/offscreen)
-[![Downloads](https://img.shields.io/npm/dt/react-three-fiber.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@react-three/offscreen)
+[![Downloads](https://img.shields.io/npm/dt/@react-three/offscreen.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@react-three/offscreen)
 [![Twitter](https://img.shields.io/twitter/follow/pmndrs?label=%40pmndrs&style=flat&colorA=000000&colorB=000000&logo=twitter&logoColor=000000)](https://twitter.com/pmndrs)
 [![Discord](https://img.shields.io/discord/740090768164651008?style=flat&colorA=000000&colorB=000000&label=discord&logo=discord&logoColor=000000)](https://discord.gg/ZZjjNvJ)
 [![Open Collective](https://img.shields.io/opencollective/all/react-three-fiber?style=flat&colorA=000000&colorB=000000)](https://opencollective.com/react-three-fiber)
