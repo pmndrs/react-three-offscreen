@@ -62,7 +62,7 @@ export default function App() {
       <pointLight position={[10, 10, 10]} />
       <Model />
       <Environment preset="city" />
-      <CameraControls />
+      <CameraControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} />
     </>
   )
 }
