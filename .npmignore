@@ -3,3 +3,4 @@ dist/
 build/
 example/
 node_modules/
+yarn-error.log
