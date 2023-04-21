@@ -1,0 +1,30 @@
+{
+  "name": "@react-three/offscreen",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "dependencies": {
+    "@react-three/drei": "^9.65.4",
+    "@react-three/fiber": "^8.12.2",
+    "@types/three": "^0.150.2",
+    "@react-three/offscreen": "^0.0.0",
+    "mitt": "^3.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "^5.0.1",
+    "three": "^0.151.3"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.7",
+    "typescript": "5.0.4"
+  },
+  "scripts": {
+    "dev": "react-scripts start",
+    "build": "react-scripts build"
+  },
+  "browserslist": [
+    ">1%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
