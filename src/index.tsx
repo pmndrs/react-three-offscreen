@@ -187,7 +187,14 @@ export function Canvas({ worker, fallback, ...props }: CanvasProps) {
     worker.postMessage({ type: 'props', payload: props })
   }, [worker, props])
 
-  return shouldFallback ? <CanvasImpl {...props}>{fallback}</CanvasImpl> : <canvas ref={canvasRef} />
+  return shouldFallback ? (
+    <CanvasImpl {...props}>{fallback}</CanvasImpl>
+  ) : (
+    <canvas
+      style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', display: 'block' }}
+      ref={canvasRef}
+    />
+  )
 }
 
 export function render(children: React.ReactNode) {

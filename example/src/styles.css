@@ -1,52 +1,17 @@
-html, body {
-  margin: 0;
-  height: 100%;
-  color: #333;
+* {
+  box-sizing: border-box;
 }
 
-#root, canvas {
+html,
+body,
+#root,
+canvas {
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
-.flex {
-  display: flex;
-}
-
-.flex-1	{
-  flex: 1 1 0%;
-}
-
-.counter {
-  position: fixed;
-  right: 20px;
-  top: 20px;
-  text-align: right;
-}
-
-.counter button {
-  border: none;
-  padding: 12px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.nav {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  color: #aaa;
-}
-
-a {
-  color: #aaa;
-}
-
-a:hover {
-  color: #666;
-}
-
-.highlight {
-  color: red;
+body {
+  background: #f0f0f0;
 }
