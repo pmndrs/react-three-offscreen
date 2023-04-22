@@ -25,14 +25,15 @@ Instead of importing `<Canvas>` from `@react-three/fiber` you can import it from
 It takes all other props that `<Canvas>` takes (dpr, shadows, etc), you can use it as a drop-in replacement.
 
 ```jsx
-// App.js (main thread)
+// App.jsx (main thread)
+import { lazy } from 'react'
 import { Canvas } from '@react-three/offscreen'
 
 // This is the fallback component that will be rendered on the main thread
 // This will happen on systems where OffscreenCanvas is not supported
-const Scene = React.lazy(() => import('./Scene'))
+const Scene = lazy(() => import('./Scene'))
 // This is the worker thread that will render the scene
-const worker = new Worker(new URL('./worker.js', import.meta.url))
+const worker = new Worker(new URL('./worker.jsx', import.meta.url))
 
 export default function App() {
   return <Canvas shadows camera={{ position: [0, 5, 10], fov: 25 }} worker={worker} fallback={<Scene />} />
@@ -42,7 +43,7 @@ export default function App() {
 Your worker thread will be responsible for rendering the scene. The `render` function takes a single argument, a ReactNode.
 
 ```jsx
-// worker.js (worker thread)
+// worker.jsx (worker thread)
 import { render } from '@react-three/offscreen'
 
 render(<Scene />)
@@ -53,46 +54,12 @@ Your app or scene should be self contained, meaning it shouldn't interact with t
 In your worker app you can use most of what is available in the eco system, drei, physics, postpro etc. You can also use assets (gltf, textures, ...). Even controls will work. You will run into problems for everything that requires a DOM to be present (drei/Html/View/...).
 
 ```jsx
-// Scene.js (a self contained webgl app)
-import React, { useRef, useState } from 'react'
-import { useFrame } from '@react-three/fiber'
-import { ContactShadows, Environment, CameraControls } from '@react-three/drei'
-
-function Cube(props) {
-  const mesh = useRef()
-  const [hovered, setHover] = useState(false)
-  const [active, setActive] = useState(false)
-  useFrame((state, delta) => {
-    mesh.current.rotation.x += delta
-    mesh.current.rotation.y += delta
-  })
-  return (
-    <>
-      <mesh
-        {...props}
-        ref={mesh}
-        scale={active ? 1.25 : 1}
-        onClick={(e) => (e.stopPropagation(), setActive(!active))}
-        onPointerOver={(e) => (e.stopPropagation(), setHover(true))}
-        onPointerOut={(e) => setHover(false)}
-      >
-        <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
-      </mesh>
-      <ContactShadows color={hovered ? 'hotpink' : 'orange'} position={[0, -1.5, 0]} blur={3} opacity={0.75} />
-    </>
-  )
-}
-
+// Scene.jsx (a self contained webgl app)
 export default function App() {
   return (
-    <>
-      <ambientLight />
-      <pointLight position={[10, 10, 10]} />
-      <Cube />
-      <Environment preset="city" />
-      <CameraControls />
-    </>
+    <mesh>
+      <boxGeometry />
+    </mesh>
   )
 }
 ```
@@ -106,6 +73,7 @@ Vites `@vitejs/plugin-react` tries to inject styles into `document` and assumes 
 1. rename worker.js → worker.jsx
 2. yarn add @vitejs/plugin-react@3.1.0
 3. disable fast refresh (see: [stackoverflow](https://stackoverflow.com/questions/73815639/how-to-use-jsx-in-a-web-worker-with-vite)) (the option was removed in 4.x)
+
 ```jsx
 export default defineConfig({
   plugins: [react({ fastRefresh: false })],
