@@ -1,7 +1,7 @@
 {
   "name": "@react-three/offscreen",
   "version": "0.0.0",
-  "main": "src/index.js",
+  "main": "src/index.jsx",
   "dependencies": {
     "@react-three/drei": "^9.65.4",
     "@react-three/fiber": "^8.12.2",
