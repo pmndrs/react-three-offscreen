@@ -96,3 +96,19 @@ export default function App() {
   )
 }
 ```
+
+## Troubleshooting
+
+### Vite
+
+Vites `@vitejs/plugin-react` tries to inject styles into `document` and assumes the presence of `window`, neither exist in a worker. As such you can consider the official React plugin faulty, it won't run React in a web worker. The workaround:
+
+1. rename worker.js → worker.jsx
+2. yarn add @vitejs/plugin-react@3.1.0
+3. disable fast refresh (see: [stackoverflow](https://stackoverflow.com/questions/73815639/how-to-use-jsx-in-a-web-worker-with-vite)) (the option was removed in 4.x)
+```jsx
+export default defineConfig({
+  plugins: [react({ fastRefresh: false })],
+  worker: { plugins: [react()] },
+})
+```
