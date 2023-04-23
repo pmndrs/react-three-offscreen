@@ -40,7 +40,7 @@ export default function App() {
 }
 ```
 
-Your worker thread will be responsible for rendering the scene. The `render` function takes a single argument, a ReactNode.
+Your worker thread will be responsible for rendering the scene. The `render` function takes a single argument, a ReactNode. React-three-fiber and its React-root/reconciler will run in that worker, rendering your contents.
 
 ```jsx
 // worker.jsx (worker thread)
