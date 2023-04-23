@@ -32,11 +32,16 @@ import { Canvas } from '@react-three/offscreen'
 // This is the fallback component that will be rendered on the main thread
 // This will happen on systems where OffscreenCanvas is not supported
 const Scene = lazy(() => import('./Scene'))
+
 // This is the worker thread that will render the scene
 const worker = new Worker(new URL('./worker.jsx', import.meta.url))
 
 export default function App() {
-  return <Canvas shadows camera={{ position: [0, 5, 10], fov: 25 }} worker={worker} fallback={<Scene />} />
+  return (
+    <Canvas
+      worker={worker} fallback={<Scene />}
+      shadows camera={{ position: [0, 5, 10], fov: 25 }} />
+  )
 }
 ```
 
