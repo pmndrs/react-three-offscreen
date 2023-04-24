@@ -76,7 +76,7 @@ export default function App() {
 Worker work ootb in next, but make sure to disable SSR for the canvas component:
 
 ```jsx
-// src/app/page.js
+// src/app/page.jsx
 import dynamic from 'next/dynamic'
 
 const App = dynamic(() => import('@/components/App'), { ssr: false })
