@@ -19,7 +19,7 @@ export interface CanvasProps
   eventPrefix?: 'offset' | 'client' | 'page' | 'layer' | 'screen'
 }
 
-export function Canvas({ worker, fallback, ...props }: CanvasProps) {
+export function Canvas({ worker, fallback, style, className, id, ...props }: CanvasProps) {
   const [shouldFallback, setFallback] = React.useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null!)
 
@@ -128,10 +128,14 @@ export function Canvas({ worker, fallback, ...props }: CanvasProps) {
   }, [worker, props])
 
   return shouldFallback ? (
-    <CanvasImpl {...props}>{fallback}</CanvasImpl>
+    <CanvasImpl id={id} className={className} style={style} {...props}>
+      {fallback}
+    </CanvasImpl>
   ) : (
     <canvas
-      style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', display: 'block' }}
+      id={id}
+      className={className}
+      style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', display: 'block', ...style }}
       ref={canvasRef}
     />
   )
