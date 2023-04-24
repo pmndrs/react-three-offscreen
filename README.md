@@ -71,9 +71,9 @@ export default function App() {
 
 ## Troubleshooting
 
-### Nextjs
+### Nextjs
 
-Worker work ootb in next, but make sure to disable SSR for the canvas component:
+Just make sure to disable SSR for the canvas component because `Worker` only exists in the DOM:
 
 ```jsx
 // src/app/page.jsx
