@@ -71,6 +71,17 @@ export default function App() {
 
 ## Troubleshooting
 
+### Nextjs
+
+Worker work ootb in next, but make sure to disable SSR for the canvas component:
+
+```jsx
+// src/app/page.js
+import dynamic from 'next/dynamic'
+
+const App = dynamic(() => import('@/components/App'), { ssr: false })
+```
+
 ### Vite
 
 Vites `@vitejs/plugin-react` tries to inject styles into `document` and assumes the presence of `window`, neither exist in a worker. As such you can consider the official React plugin faulty, it won't run React in a web worker. The workaround:
