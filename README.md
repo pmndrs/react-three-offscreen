@@ -34,7 +34,7 @@ import { Canvas } from '@react-three/offscreen'
 const Scene = lazy(() => import('./Scene'))
 
 // This is the worker thread that will render the scene
-const worker = new Worker(new URL('./worker.jsx', import.meta.url))
+const worker = new Worker(new URL('./worker.jsx', import.meta.url), { type: 'module' })
 
 export default function App() {
   return (

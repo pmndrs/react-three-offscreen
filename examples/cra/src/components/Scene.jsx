@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { useGLTF, Center, ContactShadows, Environment, CameraControls } from '@react-three/drei'
 
