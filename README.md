@@ -9,7 +9,7 @@
 [![BTC](https://img.shields.io/badge/BTC-f5f5f5?style=flat&colorA=000000&colorB=000000)](https://blockchain.com/btc/address/36fuguTPxGCNnYZSRdgdh6Ea94brCAjMbH)
 
 <br />
-<a href="offscreen.pmnd.rs"><img src="/front.jpg" width="100%" /></a>
+<a href="https://offscreen.pmnd.rs/"><img src="/front.jpg" width="100%" /></a>
 <br />
 
 ```bash
