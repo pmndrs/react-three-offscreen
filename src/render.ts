@@ -90,4 +90,12 @@ export function render(children: React.ReactNode) {
   self.window = {}
   // @ts-ignore
   self.document = {}
+  // @ts-ignore
+  self.Image = class {
+    height = 1
+    width = 1
+    set onload (callback: any) {
+      callback(true)
+    }
+  }
 }

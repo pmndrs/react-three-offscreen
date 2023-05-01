@@ -4,7 +4,7 @@ import { useGLTF, Center, ContactShadows, Environment, CameraControls } from '@r
 
 function Model() {
   const mesh = useRef()
-  const { nodes, materials } = useGLTF('/pmndrs.glb')
+  const { nodes, materials } = useGLTF('/pmndrs-transformed.glb')
   const [hovered, setHover] = useState(false)
   const [active, setActive] = useState(false)
   const color = hovered ? 'hotpink' : 'orange'
