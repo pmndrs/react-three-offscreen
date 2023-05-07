@@ -77,7 +77,7 @@ export default function App() {
 
 ## Troubleshooting
 
-### Compromises and defaults
+### Compromises and defaults
 
 For better interop all non-passive events (click, contextmenu, dlbclick) will preventDefault, pointerdown will capture, pointerup will release capture.
 
