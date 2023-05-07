@@ -85,6 +85,38 @@ export function render(children: React.ReactNode) {
     if (handler) handler(payload)
   }
 
+  // Shims for threejs
+  // @ts-ignore
+  THREE.ImageLoader.prototype.load = function (
+    url: string,
+    onLoad: (img: ImageBitmap) => void,
+    onProgress: () => void,
+    onError: (e: Error) => void
+  ) {
+    if (this.path !== undefined) url = this.path + url
+    url = this.manager.resolveURL(url)
+    const scope = this
+    const cached = THREE.Cache.get(url)
+
+    if (cached !== undefined) {
+      scope.manager.itemStart(url)
+      if (onLoad) onLoad(cached)
+      scope.manager.itemEnd(url)
+      return cached
+    }
+
+    fetch(url)
+      .then((res) => res.blob())
+      .then((res) => createImageBitmap(res))
+      .then((bitmap) => {
+        THREE.Cache.add(url, bitmap)
+        if (onLoad) onLoad(bitmap)
+        scope.manager.itemEnd(url)
+      })
+      .catch(onError)
+    return {}
+  }
+
   // Shims for web offscreen canvas
   // @ts-ignore
   self.window = {}
@@ -94,7 +126,7 @@ export function render(children: React.ReactNode) {
   self.Image = class {
     height = 1
     width = 1
-    set onload (callback: any) {
+    set onload(callback: any) {
       callback(true)
     }
   }

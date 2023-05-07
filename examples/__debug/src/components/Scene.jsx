@@ -1,10 +1,16 @@
 import React, { useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { useGLTF, Center, ContactShadows, Environment, CameraControls } from '@react-three/drei'
+import { useNormalTexture, useGLTF, Center, ContactShadows, Environment, CameraControls } from '@react-three/drei'
 
 function Model() {
   const mesh = useRef()
   const { nodes, materials } = useGLTF('/pmndrs-transformed.glb')
+  const [texture] = useNormalTexture(23, {
+    offset: [0, 0],
+    repeat: [1, 1],
+    anisotropy: 8,
+  })
+
   const [hovered, setHover] = useState(false)
   const [active, setActive] = useState(false)
   const color = hovered ? 'hotpink' : 'orange'
@@ -19,6 +25,8 @@ function Model() {
           geometry={nodes.cube.geometry}
           material={materials.base}
           material-color={color}
+          material-normalMap={texture}
+          material-normalScale={0.1}
           scale={active ? 0.3 : 0.25}
           onClick={(e) => (e.stopPropagation(), setActive(!active))}
           onPointerOver={(e) => (e.stopPropagation(), setHover(true))}
