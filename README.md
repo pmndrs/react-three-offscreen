@@ -26,7 +26,7 @@ This package tries to fix that! The goal is that your existing code will just wo
 
 ## Usage
 
-Instead of importing `<Canvas>` from `@react-three/fiber` you can import it from `@react-three/offscreen` and pass a `worker` prop. The `fallback` prop is optional, your scene will be rendered on the main thread, in a regular canvas, where OffscreenCanvas is not supported (Safari).
+Instead of importing `<Canvas>` from `@react-three/fiber` you can import it from `@react-three/offscreen` and pass a `worker` prop. The `fallback` prop is optional, your scene will be rendered on the main thread when OffscreenCanvas is not supported.
 
 It takes all other props that `<Canvas>` takes (dpr, shadows, etc), you can use it as a drop-in replacement.
 
@@ -60,9 +60,7 @@ import { render } from '@react-three/offscreen'
 render(<Scene />)
 ```
 
-Your app or scene should be self contained, meaning it shouldn't interact with the DOM. This is because offscreen canvas + webgl is still not supported in Safari. If you must communicate with the DOM, you can use the web broadcast API.
-
-In your worker app you can use most of what is available in the eco system, drei, physics, postpro etc. You can also use assets (gltf, textures, ...). Even controls will work. You will run into problems for everything that requires a DOM to be present (drei/Html/View/...).
+Your app or scene should idealy be self contained, it shouldn't postMessage with the DOM. This is because offscreen canvas + webgl is still not supported in Safari. If you must communicate with the DOM, you can use the web broadcast API.
 
 ```jsx
 // Scene.jsx (a self contained webgl app)
