@@ -18,7 +18,11 @@ npm install three @react-three/fiber @react-three/offscreen
 
 This is an experimental package that allows you to render your [react-three-fiber](https://github.com/pmndrs/react-three-fiber) scene with an offscreen canvas in a web worker. This is mostly useful for self-contained webgl apps, and un-blocking the main thread.
 
-The package will forward DOM events to the worker so you can expect mostly everything to run fine. It will even shim a basic document/window interface so that camera controls and various threejs classes that must interact with the DOM have something to work with.
+## What's the big deal, workers existed before
+
+They did. But you could never just run your existing WebGL/Threejs app in it, it had to be rewritten. Pointerevent events don't work, controls don't, images, GLTF, etc. Worse, thanks to Safari you needed to maintain two forks of your app, one that runs in a worker and one that runs on the main thread as a fallback.
+
+This package tries to fix that! The goal is that your existing code will just work. It will forward DOM events to the worker, patch and shim basic document/window interfaces, shim threejs.
 
 For better interop all non-passive events (click, contextmenu, dlbclick) will preventDefault, pointerdown will capture, pointerup will release capture.
 
