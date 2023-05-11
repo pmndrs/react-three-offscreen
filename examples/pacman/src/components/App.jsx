@@ -9,7 +9,7 @@ export default function App() {
   return (
     <Canvas
       eventPrefix="client"
-      //eventSource={document.getElementById('root')}
+      eventSource={document.getElementById('root')}
       camera={{ position: [-50, -25, 150], fov: 15 }}
       worker={worker}
       fallback={<Scene />}

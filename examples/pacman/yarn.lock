@@ -1403,10 +1403,10 @@
   resolved "https://registry.yarnpkg.com/@react-spring/types/-/types-9.6.1.tgz#913d3a68c5cbc1124fdb18eff919432f7b6abdde"
   integrity sha512-POu8Mk0hIU3lRXB3bGIGe4VHIwwDsQyoD1F394OK7STTiX9w4dG3cTLljjYswkQN+hDSHRrj4O36kuVa7KPU8Q==
 
-"@react-three/drei@^9.67.1":
-  version "9.67.1"
-  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-9.67.1.tgz#bd057458f21156978b0ed9f8b7f759f04dfaf580"
-  integrity sha512-g1wJKisMOVaCVg8xv3uJB6JGt/SFw1lcoTO8kQOnGxslGlQk9gV/LcMu2NHhPSxXy8fJpsaD+1HSkoTqsBAV8Q==
+"@react-three/drei@^9.68.2":
+  version "9.68.2"
+  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-9.68.2.tgz#90f80fbae777cd3a2c2505cd7abbd1740b37b53b"
+  integrity sha512-By462DHLWE2P6yW0jsg5XveV3ZLJRGPYMJHJRZyg1nDiLxAw66R4sVXkO0ClwFOe5bwGhLHgEsqx07sfwBjQqw==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@react-spring/three" "~9.6.1"
@@ -1443,10 +1443,10 @@
     suspend-react "^0.0.8"
     zustand "^3.7.1"
 
-"@react-three/offscreen@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@react-three/offscreen/-/offscreen-0.0.7.tgz#8583c53118c029c2e41e71e25d8dae526452b376"
-  integrity sha512-femIDDKtZI5a/Jp0EJXznaV/nuzxMZloS9bzz1sreEngapPPdFAa9pbnPF+70KFiWpuQiL+RnCqTvwVENqrJDQ==
+"@react-three/offscreen@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@react-three/offscreen/-/offscreen-0.0.8.tgz#0d3da12bd4f7ca69d0bc3569b9ae8e2c78e3e592"
+  integrity sha512-YXPWYKSCqsqXBcOqLPhY9vA3PThJCOfzGFj2RfNqkEAOeClNsJ+PN9rxREu2QC3yWuKgFS5oD2pK9yuhErvI9w==
   dependencies:
     mitt "^3.0.0"
 
