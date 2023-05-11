@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import mitt from 'mitt'
 import { extend, createRoot, ReconcilerRoot, Dpr, Size } from '@react-three/fiber'
+import { DomEvent } from '@react-three/fiber/dist/declarations/src/core/events'
 import { createPointerEvents } from './events'
 
 export function render(children: React.ReactNode) {
@@ -46,7 +47,20 @@ export function render(children: React.ReactNode) {
         size: (size = { width, height, top, left, updateStyle: false }),
         dpr: (dpr = Math.min(Math.max(1, pixelRatio), 2)),
         ...props,
+        onCreated: (state) => {
+          if (props.eventPrefix) {
+            state.setEvents({
+              compute: (event, state) => {
+                const x = event[(props.eventPrefix + 'X') as keyof DomEvent] as number
+                const y = event[(props.eventPrefix + 'Y') as keyof DomEvent] as number
+                state.pointer.set((x / state.size.width) * 2 - 1, -(y / state.size.height) * 2 + 1)
+                state.raycaster.setFromCamera(state.pointer, state.camera)
+              },
+            })
+          }
+        },
       })
+
       // Render children once
       root.render(children)
     } catch (e: any) {
@@ -107,7 +121,7 @@ export function render(children: React.ReactNode) {
 
     fetch(url)
       .then((res) => res.blob())
-      .then((res) => createImageBitmap(res))
+      .then((res) => createImageBitmap(res, { premultiplyAlpha: 'none', colorSpaceConversion: 'none' }))
       .then((bitmap) => {
         THREE.Cache.add(url, bitmap)
         if (onLoad) onLoad(bitmap)

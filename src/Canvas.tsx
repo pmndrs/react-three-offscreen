@@ -19,7 +19,11 @@ export interface CanvasProps
   eventPrefix?: 'offset' | 'client' | 'page' | 'layer' | 'screen'
 }
 
-export function Canvas({ worker, fallback, style, className, id, ...props }: CanvasProps) {
+function isRefObject<T>(ref: any): ref is React.MutableRefObject<T> {
+  return ref && ref.current !== undefined
+}
+
+export function Canvas({ eventSource, worker, fallback, style, className, id, ...props }: CanvasProps) {
   const [shouldFallback, setFallback] = React.useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null!)
 
@@ -60,8 +64,10 @@ export function Canvas({ worker, fallback, style, className, id, ...props }: Can
       [offscreen]
     )
 
+    const currentEventSource = isRefObject(eventSource) ? eventSource.current : eventSource || canvas
+
     Object.values(EVENTS).forEach(([eventName, passive]) => {
-      canvas.addEventListener(
+      currentEventSource.addEventListener(
         eventName,
         (event: any) => {
           // Prevent default for all passive events
@@ -108,10 +114,10 @@ export function Canvas({ worker, fallback, style, className, id, ...props }: Can
       worker.postMessage({
         type: 'resize',
         payload: {
-          width: canvas.clientWidth,
-          height: canvas.clientHeight,
-          top: canvas.offsetTop,
-          left: canvas.offsetLeft,
+          width: currentEventSource.clientWidth,
+          height: currentEventSource.clientHeight,
+          top: currentEventSource.offsetTop,
+          left: currentEventSource.offsetLeft,
         },
       })
     }

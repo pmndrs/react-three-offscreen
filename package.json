@@ -13,6 +13,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs",
+    "dev": "cd examples/__debug && npx vite",
     "postbuild": "tsc --emitDeclarationOnly",
     "prepublishOnly": "npm run build",
     "test": "echo no tests yet"
