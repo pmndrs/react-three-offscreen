@@ -18,13 +18,15 @@ npm install three @react-three/fiber @react-three/offscreen
 
 This is an experimental package that allows you to render your [react-three-fiber](https://github.com/pmndrs/react-three-fiber) scene with an offscreen canvas in a web worker. This is mostly useful for self-contained webgl apps, and un-blocking the main thread.
 
-The package will forward DOM events to the worker so you can expect mostly everything to run fine. It will even shim a basic document/window interface so that camera controls and various threejs classes that must interact with the DOM have something to work with.
+## What's the big deal, workers existed before
 
-For better interop all non-passive events (click, contextmenu, dlbclick) will preventDefault, pointerdown will capture, pointerup will release capture.
+You only could never just run your existing WebGL/Threejs app in it. It had to be rewritten. Pointer-events wouldn't work, controls, textures, GLTFs, etc. Worse, thanks to Safari you needed to maintain two forks of your app, one that runs in a worker and one that runs on the main thread as a fallback. This is probably the main reason why Threejs with an offscreen canvas has never caught on.
+
+This package tries to fix that! The goal is that your existing code will just work. It will forward DOM events to the worker, patch and shim Threejs as well as basic document/window interfaces. It will automatically fall back to main thread if a browser doesn't support offscreen canvas. Even the eco system will work (Drei, Rapier physics, Postprocessing, ...).
 
 ## Usage
 
-Instead of importing `<Canvas>` from `@react-three/fiber` you can import it from `@react-three/offscreen` and pass a `worker` prop. The `fallback` prop is optional, your scene will be rendered on the main thread, in a regular canvas, where OffscreenCanvas is not supported (Safari).
+Instead of importing `<Canvas>` from `@react-three/fiber` you can import it from `@react-three/offscreen` and pass a `worker` prop. The `fallback` prop is optional, your scene will be rendered on the main thread when OffscreenCanvas is not supported.
 
 It takes all other props that `<Canvas>` takes (dpr, shadows, etc), you can use it as a drop-in replacement.
 
@@ -58,9 +60,7 @@ import { render } from '@react-three/offscreen'
 render(<Scene />)
 ```
 
-Your app or scene should be self contained, meaning it shouldn't interact with the DOM. This is because offscreen canvas + webgl is still not supported in Safari. If you must communicate with the DOM, you can use the web broadcast API.
-
-In your worker app you can use most of what is available in the eco system, drei, physics, postpro etc. You can also use assets (gltf, textures, ...). Even controls will work. You will run into problems for everything that requires a DOM to be present (drei/Html/View/...).
+Your app or scene should idealy be self contained, it shouldn't postMessage with the DOM. This is because offscreen canvas + webgl is still not supported in Safari. If you must communicate with the DOM, you can use the web broadcast API.
 
 ```jsx
 // Scene.jsx (a self contained webgl app)
@@ -74,6 +74,10 @@ export default function App() {
 ```
 
 ## Troubleshooting
+
+### Compromises and defaults
+
+For better interop all non-passive events (click, contextmenu, dlbclick) will preventDefault, pointerdown will capture, pointerup will release capture.
 
 ### Nextjs
 
