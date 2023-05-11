@@ -20,7 +20,7 @@ This is an experimental package that allows you to render your [react-three-fibe
 
 ## What's the big deal, workers existed before
 
-They do. But you could never just run your existing WebGL/Threejs app in it, it had to be rewritten. Pointer-events don't work, controls don't, images, textures, normals, GLTFs, etc. Worse, thanks to Safari you needed to maintain two forks of your app, one that runs in a worker and one that runs on the main thread as a fallback. This is probably the main reason why Threejs with an offscreen canvas has never caught on.
+You only could never just run your existing WebGL/Threejs app in it. It had to be rewritten. Pointer-events wouldn't work, controls, textures, GLTFs, etc. Worse, thanks to Safari you needed to maintain two forks of your app, one that runs in a worker and one that runs on the main thread as a fallback. This is probably the main reason why Threejs with an offscreen canvas has never caught on.
 
 This package tries to fix that! The goal is that your existing code will just work. It will forward DOM events to the worker, patch and shim Threejs as well as basic document/window interfaces. It will automatically fall back to main thread if a browser doesn't support offscreen canvas. Even the eco system will work (Drei, Rapier physics, Postprocessing, ...).
 
