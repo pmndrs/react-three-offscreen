@@ -11,24 +11,24 @@
   },
   "dependencies": {
     "@pmndrs/branding": "^0.0.8",
-    "@react-three/drei": "^9.68.2",
-    "@react-three/fiber": "^8.13.0",
+    "@react-three/drei": "^9.79.3",
+    "@react-three/fiber": "^8.13.5",
     "@react-three/offscreen": "^0.0.8",
-    "@react-three/rapier": "^0.15.1",
-    "maath": "^0.5.3",
+    "@react-three/rapier": "0.15.1",
+    "maath": "^0.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "styled-components": "^6.0.0-rc.1",
-    "three": "^0.152.2"
+    "styled-components": "^6.0.5",
+    "three": "^0.154.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.6",
-    "@types/react-dom": "^18.2.4",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "3.1.0",
-    "eslint": "^8.40.0",
-    "eslint-plugin-react": "^7.32.2",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react": "^7.33.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.1",
-    "vite": "^4.3.5"
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "vite": "^4.4.6"
   }
 }
