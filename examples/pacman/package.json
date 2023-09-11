@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@pmndrs/branding": "^0.0.8",
-    "@react-three/drei": "^9.79.3",
+    "@react-three/drei": "^9.83.9",
     "@react-three/fiber": "^8.13.5",
     "@react-three/offscreen": "^0.0.8",
     "@react-three/rapier": "0.15.1",

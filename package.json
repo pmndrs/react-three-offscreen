@@ -52,7 +52,7 @@
     "@babel/preset-env": "7.21.4",
     "@babel/preset-react": "7.18.6",
     "@babel/preset-typescript": "^7.21.4",
-    "@react-three/drei": "^9.65.4",
+    "@react-three/drei": "^9.83.9",
     "@react-three/fiber": "^8.12.2",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-node-resolve": "^15.0.2",

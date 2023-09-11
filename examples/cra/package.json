@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "main": "src/index.jsx",
   "dependencies": {
-    "@react-three/drei": "^9.79.3",
+    "@react-three/drei": "^9.83.9",
     "@react-three/fiber": "^8.13.5",
     "@types/three": "^0.154.0",
     "@react-three/offscreen": "^0.0.8",

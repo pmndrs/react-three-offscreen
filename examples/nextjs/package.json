@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@react-three/drei": "^9.65.5",
+    "@react-three/drei": "^9.83.9",
     "@react-three/fiber": "^8.12.2",
     "@react-three/offscreen": "^0.0.5",
     "@types/three": "^0.150.2",
