@@ -15,6 +15,11 @@ export function render(children: React.ReactNode) {
   const handleInit = (payload: any) => {
     const { props, drawingSurface: canvas, width, top, left, height, pixelRatio } = payload
     try {
+      // Unmount root if already mounted
+      if (root) {
+        root.unmount()
+      }
+
       // Shim the canvas into a fake window/document
       Object.assign(canvas, {
         pageXOffset: left,
