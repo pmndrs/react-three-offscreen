@@ -26,15 +26,32 @@ function isRefObject<T>(ref: any): ref is React.MutableRefObject<T> {
 export function Canvas({ eventSource, worker, fallback, style, className, id, ...props }: CanvasProps) {
   const [shouldFallback, setFallback] = React.useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null!)
+  const hasTransferredToOffscreen = useRef(false)
 
   useEffect(() => {
     if (!worker) return
 
     const canvas = canvasRef.current
-    let offscreen
     try {
-      // @ts-ignore
-      offscreen = canvasRef.current.transferControlToOffscreen()
+      if (!hasTransferredToOffscreen.current) {
+        hasTransferredToOffscreen.current = true
+        const offscreen = canvasRef.current.transferControlToOffscreen()
+        worker.postMessage(
+          {
+            type: 'init',
+            payload: {
+              props,
+              drawingSurface: offscreen,
+              width: canvas.clientWidth,
+              height: canvas.clientHeight,
+              top: canvas.offsetTop,
+              left: canvas.offsetLeft,
+              pixelRatio: window.devicePixelRatio,
+            },
+          },
+          [offscreen]
+        )
+      }
     } catch (e) {
       // Browser doesn't support offscreen canvas at all
       setFallback(true)
@@ -47,22 +64,6 @@ export function Canvas({ eventSource, worker, fallback, style, className, id, ..
         setFallback(true)
       }
     }
-
-    worker.postMessage(
-      {
-        type: 'init',
-        payload: {
-          props,
-          drawingSurface: offscreen,
-          width: canvas.clientWidth,
-          height: canvas.clientHeight,
-          top: canvas.offsetTop,
-          left: canvas.offsetLeft,
-          pixelRatio: window.devicePixelRatio,
-        },
-      },
-      [offscreen]
-    )
 
     const currentEventSource = isRefObject(eventSource) ? eventSource.current : eventSource || canvas
 
