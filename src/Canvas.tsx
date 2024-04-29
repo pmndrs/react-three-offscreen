@@ -34,8 +34,8 @@ export function Canvas({ eventSource, worker, fallback, style, className, id, ..
     const canvas = canvasRef.current
     try {
       if (!hasTransferredToOffscreen.current) {
-        hasTransferredToOffscreen.current = true
         const offscreen = canvasRef.current.transferControlToOffscreen()
+        hasTransferredToOffscreen.current = true
         worker.postMessage(
           {
             type: 'init',
