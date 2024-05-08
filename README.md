@@ -34,7 +34,6 @@ It takes all other props that `<Canvas>` takes (dpr, shadows, etc), you can use 
 // App.jsx (main thread)
 import { lazy } from 'react'
 import { Canvas } from '@react-three/offscreen'
-import Scene from './Scene'
 
 // This is the fallback component that will be rendered on the main thread
 // This will happen on systems where OffscreenCanvas is not supported
