@@ -13,7 +13,7 @@ export interface CanvasProps
    * Options to pass to useMeasure.
    * @see https://github.com/pmndrs/react-use-measure#api
    */
-  resize?: ResizeOptions // You can define specific types for resize options if necessary
+  resize?: ResizeOptions
   /** The target where events are being subscribed to, default: the div that wraps canvas */
   eventSource?: HTMLElement | React.MutableRefObject<HTMLElement>
   /** The event prefix that is cast into canvas pointer x/y events, default: "offset" */
