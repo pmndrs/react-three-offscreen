@@ -26,7 +26,7 @@ function isRefObject<T>(ref: any): ref is React.MutableRefObject<T> {
 
 export function Canvas({ eventSource, worker, fallback, style, className, id, ...props }: CanvasProps) {
   const [shouldFallback, setFallback] = React.useState(false)
-  const [measureRef, bounds] = useMeasure()
+  const [measureRef, bounds] = useMeasure(props.resize)
   const canvasRef = useRef<HTMLCanvasElement>(null!)
   const mergedRef = mergeRefs([canvasRef, measureRef])
   const hasTransferredToOffscreen = useRef(false)
