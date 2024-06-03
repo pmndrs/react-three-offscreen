@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
-import type { Options as ResizeOptions } from 'react-use-measure'
+import useMeasure, { Options as ResizeOptions } from 'react-use-measure'
+import { mergeRefs } from 'react-merge-refs'
 import { Canvas as CanvasImpl, RenderProps } from '@react-three/fiber'
 import { EVENTS } from './events'
 
@@ -12,7 +13,7 @@ export interface CanvasProps
    * Options to pass to useMeasure.
    * @see https://github.com/pmndrs/react-use-measure#api
    */
-  resize?: ResizeOptions
+  resize?: ResizeOptions // You can define specific types for resize options if necessary
   /** The target where events are being subscribed to, default: the div that wraps canvas */
   eventSource?: HTMLElement | React.MutableRefObject<HTMLElement>
   /** The event prefix that is cast into canvas pointer x/y events, default: "offset" */
@@ -25,7 +26,9 @@ function isRefObject<T>(ref: any): ref is React.MutableRefObject<T> {
 
 export function Canvas({ eventSource, worker, fallback, style, className, id, ...props }: CanvasProps) {
   const [shouldFallback, setFallback] = React.useState(false)
+  const [measureRef, bounds] = useMeasure()
   const canvasRef = useRef<HTMLCanvasElement>(null!)
+  const mergedRef = mergeRefs([canvasRef, measureRef])
   const hasTransferredToOffscreen = useRef(false)
 
   useEffect(() => {
@@ -110,24 +113,19 @@ export function Canvas({ eventSource, worker, fallback, style, className, id, ..
         { passive }
       )
     })
-
-    const handleResize = () => {
-      worker.postMessage({
-        type: 'resize',
-        payload: {
-          width: currentEventSource.clientWidth,
-          height: currentEventSource.clientHeight,
-          top: currentEventSource.offsetTop,
-          left: currentEventSource.offsetLeft,
-        },
-      })
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
   }, [worker])
+
+  useEffect(() => {
+    worker.postMessage({
+      type: 'resize',
+      payload: {
+        width: bounds.width,
+        height: bounds.height,
+        top: bounds.top,
+        left: bounds.left,
+      },
+    })
+  }, [bounds])
 
   useEffect(() => {
     if (!worker) return
@@ -143,7 +141,7 @@ export function Canvas({ eventSource, worker, fallback, style, className, id, ..
       id={id}
       className={className}
       style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', display: 'block', ...style }}
-      ref={canvasRef}
+      ref={mergedRef}
     />
   )
 }
