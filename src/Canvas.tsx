@@ -17,13 +17,14 @@ export interface CanvasProps
   eventSource?: HTMLElement | React.MutableRefObject<HTMLElement>
   /** The event prefix that is cast into canvas pointer x/y events, default: "offset" */
   eventPrefix?: 'offset' | 'client' | 'page' | 'layer' | 'screen'
+  sceneProps?: Record<string, any>
 }
 
 function isRefObject<T>(ref: any): ref is React.MutableRefObject<T> {
   return ref && ref.current !== undefined
 }
 
-export function Canvas({ eventSource, worker, fallback, style, className, id, ...props }: CanvasProps) {
+export function Canvas({ eventSource, worker, fallback, style, className, id, sceneProps, ...props }: CanvasProps) {
   const [shouldFallback, setFallback] = React.useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null!)
   const hasTransferredToOffscreen = useRef(false)
@@ -40,7 +41,7 @@ export function Canvas({ eventSource, worker, fallback, style, className, id, ..
           {
             type: 'init',
             payload: {
-              props,
+              props: { sceneProps, ...props },
               drawingSurface: offscreen,
               width: canvas.clientWidth,
               height: canvas.clientHeight,
@@ -131,8 +132,8 @@ export function Canvas({ eventSource, worker, fallback, style, className, id, ..
 
   useEffect(() => {
     if (!worker) return
-    worker.postMessage({ type: 'props', payload: props })
-  }, [worker, props])
+    worker.postMessage({ type: 'props', payload: { sceneProps, ...props } })
+  }, [worker, props, sceneProps])
 
   return shouldFallback ? (
     <CanvasImpl id={id} className={className} style={style} {...props}>

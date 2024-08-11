@@ -4,7 +4,7 @@ import { extend, createRoot, ReconcilerRoot, Dpr, Size } from '@react-three/fibe
 import { DomEvent } from '@react-three/fiber/dist/declarations/src/core/events'
 import { createPointerEvents } from './events'
 
-export function render(children: React.ReactNode) {
+export function render<P extends {}>(component: React.FunctionComponent<P> | React.ComponentClass<P>) {
   extend(THREE)
 
   let root: ReconcilerRoot<HTMLCanvasElement>
@@ -13,7 +13,7 @@ export function render(children: React.ReactNode) {
   const emitter = mitt()
 
   const handleInit = (payload: any) => {
-    const { props, drawingSurface: canvas, width, top, left, height, pixelRatio } = payload
+    const { props, sceneProps, drawingSurface: canvas, width, top, left, height, pixelRatio } = payload
     try {
       // Unmount root if already mounted
       if (root) {
@@ -67,7 +67,7 @@ export function render(children: React.ReactNode) {
       })
 
       // Render children once
-      root.render(children)
+      root.render(React.createElement(component, sceneProps))
     } catch (e: any) {
       postMessage({ type: 'error', payload: e?.message })
     }
@@ -85,10 +85,11 @@ export function render(children: React.ReactNode) {
     emitter.emit(payload.eventName, { ...payload, preventDefault() {}, stopPropagation() {} })
   }
 
-  const handleProps = (payload: any) => {
+  const handleProps = ({ sceneProps, ...payload })=> {
     if (!root) return
     if (payload.dpr) dpr = payload.dpr
     root.configure({ size, dpr, ...payload })
+    root.render(React.createElement(component, sceneProps))
   }
 
   const handlerMap = {
