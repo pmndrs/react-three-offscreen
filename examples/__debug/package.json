@@ -10,16 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-three/drei": "^9.83.9",
-    "@react-three/fiber": "^8.12.2",
+    "@react-three/drei": "10.0.0-rc.1",
+    "@react-three/fiber": "9.0.0-rc.5",
     "@react-three/offscreen": "^0.0.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "three": "^0.151.3"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "three": "^0.172.0"
   },
   "devDependencies": {
-    "@types/react": "^18.0.38",
-    "@types/react-dom": "^18.0.11",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "3.1.0",
     "eslint": "^8.39.0",
     "eslint-plugin-react": "^7.32.2",
