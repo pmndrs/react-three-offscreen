@@ -1,5 +1,5 @@
 .DS_Store
-.yarn
+.yarn/
 build/
 example/
 node_modules/
