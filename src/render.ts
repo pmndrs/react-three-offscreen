@@ -1,3 +1,4 @@
+import React from 'react'
 import * as THREE from 'three'
 import mitt from 'mitt'
 import { extend, createRoot, ReconcilerRoot, Dpr, Size } from '@react-three/fiber'
@@ -5,14 +6,14 @@ import { DomEvent } from '@react-three/fiber/dist/declarations/src/core/events'
 import { createPointerEvents } from './events'
 
 export function render(children: React.ReactNode) {
-  extend(THREE)
+  extend(THREE as any)
 
   let root: ReconcilerRoot<HTMLCanvasElement>
   let dpr: Dpr = [1, 2]
-  let size: Size = { width: 0, height: 0, top: 0, left: 0, updateStyle: false }
+  let size: Size = { width: 0, height: 0, top: 0, left: 0 }
   const emitter = mitt()
 
-  const handleInit = (payload: any) => {
+  const handleInit = async (payload: any) => {
     const { props, drawingSurface: canvas, width, top, left, height, pixelRatio } = payload
     try {
       // Unmount root if already mounted
@@ -47,15 +48,15 @@ export function render(children: React.ReactNode) {
       // Create react-three-fiber root
       root = createRoot(canvas)
       // Configure root
-      root.configure({
+      await root.configure({
         events: createPointerEvents(emitter),
-        size: (size = { width, height, top, left, updateStyle: false }),
+        size: (size = { width, height, top, left }),
         dpr: (dpr = Math.min(Math.max(1, pixelRatio), 2)),
         ...props,
-        onCreated: (state) => {
+        onCreated: (state: any) => {
           if (props.eventPrefix) {
             state.setEvents({
-              compute: (event, state) => {
+              compute: (event: any, state: any) => {
                 const x = event[(props.eventPrefix + 'X') as keyof DomEvent] as number
                 const y = event[(props.eventPrefix + 'Y') as keyof DomEvent] as number
                 state.pointer.set((x / state.size.width) * 2 - 1, -(y / state.size.height) * 2 + 1)
@@ -78,7 +79,7 @@ export function render(children: React.ReactNode) {
 
   const handleResize = ({ width, height, top, left }: Size) => {
     if (!root) return
-    root.configure({ size: (size = { width, height, top, left, updateStyle: false }), dpr })
+    root.configure({ size: (size = { width, height, top, left }), dpr })
   }
 
   const handleEvents = (payload: any) => {
